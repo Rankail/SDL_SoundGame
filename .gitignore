@@ -1,3 +1,6 @@
 .vs
+**.sln
+**.vcxproj
+**.vcxproj.user
 bin
 bin-int
