@@ -17,6 +17,7 @@ Window::~Window()
 
 SDL_Point Window::GetWindowSize()
 {
+    SDL_Color
     int w, h;
     SDL_GetWindowSize(m_Window, &w, &h);
     return SDL_Point(w, h);
