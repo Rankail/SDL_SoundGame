@@ -1,10 +1,9 @@
-#include <SDL.h>
-#include <iostream>
+#include "rtspch.h"
 
 int main(int argc, char** argv)
 {
 	SDL_Window* window;
-	SDL_Surface* surface;
+	SDL_Renderer* renderer;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -19,10 +18,10 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	surface = SDL_GetWindowSurface(window);
-	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0x88, 0x44, 0x00));
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (renderer == NULL) {
 
-	SDL_UpdateWindowSurface(window);
+	}
 
 	SDL_Event e;
 	bool quit = false;
@@ -34,7 +33,23 @@ int main(int argc, char** argv)
 			{
 				quit = true;
 			}
+			else if (e.type == SDL_KEYUP) {
+				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+					quit = true;
+				}
+			}
 		}
+
+		//update
+
+		//render
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x33, 0xFF);
+		SDL_RenderClear(renderer);
+
+		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
+		SDL_RenderFillRect(renderer, new SDL_Rect{ 20, 30, 50, 40 });
+
+		SDL_RenderPresent(renderer);
 	}
 
 	SDL_DestroyWindow(window);
