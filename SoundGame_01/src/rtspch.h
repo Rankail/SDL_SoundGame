@@ -6,6 +6,7 @@
 #include <exception>
 #include <vector>
 #include <unordered_map>
+#include <memory>
 
 #include <cstdint>
 #include <iostream>

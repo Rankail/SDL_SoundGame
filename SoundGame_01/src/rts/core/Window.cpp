@@ -1,7 +1,12 @@
 #include "rtspch.h"
-
 #include "Window.h"
-#include "Exceptions.h"
+
+#include "rts/core/Exceptions.h"
+
+std::shared_ptr<Window> Window::Create(const char* title, uint32_t width, uint32_t height)
+{
+    return std::make_shared<Window>(title, width, height);
+}
 
 Window::Window(const char* title, uint32_t width, uint32_t height)
 {
@@ -17,8 +22,7 @@ Window::~Window()
 
 SDL_Point Window::GetWindowSize()
 {
-    SDL_Color
     int w, h;
     SDL_GetWindowSize(m_Window, &w, &h);
-    return SDL_Point(w, h);
+    return SDL_Point{w, h};
 }

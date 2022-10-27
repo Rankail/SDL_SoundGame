@@ -5,6 +5,9 @@
 class Window
 {
 public:
+	static std::shared_ptr<Window> Create(const char* title, uint32_t width, uint32_t height);
+
+public:
 	Window(const char* title, uint32_t width, uint32_t height);
 	virtual ~Window();
 

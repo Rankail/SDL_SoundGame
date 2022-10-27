@@ -1,10 +1,14 @@
 #pragma once
 
-#include "Window.h"
+#include "rts/core/Window.h"
+
+#include <memory>
 
 class Application
 {
 public:
+	static Application* Create();
+	static void Delete();
 	static Application* GetInstance();
 private:
 	static Application* instance;
@@ -21,5 +25,6 @@ public:
 private:
 	std::shared_ptr<Window> m_Window;
 
+	bool m_Quit = false;
 
 };
