@@ -2,6 +2,7 @@
 #include "Window.h"
 
 #include "rts/core/Exceptions.h"
+#include "rts/core/Log.h"
 
 std::shared_ptr<Window> Window::Create(const char* title, uint32_t width, uint32_t height)
 {
@@ -12,7 +13,8 @@ Window::Window(const char* title, uint32_t width, uint32_t height)
 {
     m_Window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if (m_Window == NULL) {
-        throw InitException("Failed to create Window");
+        LOG_CRITICAL("Failed to create window.\n{}", SDL_GetError());
+        throw InitException("Failed to create window");
     }
 }
 
