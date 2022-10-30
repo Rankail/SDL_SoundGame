@@ -18,6 +18,7 @@ Window::Window(const char* title, uint32_t width, uint32_t height)
 
 Window::~Window()
 {
+    SDL_DestroyWindow(m_Window);
 }
 
 SDL_Point Window::GetWindowSize()

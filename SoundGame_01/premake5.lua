@@ -1,7 +1,7 @@
 project "SoundGame_01"  
     kind "ConsoleApp" 
     language "C++"
-    cppdialect "C++20"
+    cppdialect "C++17"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -19,7 +19,8 @@ project "SoundGame_01"
         "src",
         "%{IncludeDir.SDL}",
         "%{IncludeDir.SDL_ttf}",
-        "%{IncludeDir.SDL_image}"
+        "%{IncludeDir.SDL_image}",
+        "%{IncludeDir.spdlog}"
     }
 
     libdirs

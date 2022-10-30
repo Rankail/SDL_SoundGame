@@ -32,6 +32,17 @@ Application::Application()
 		throw InitException("Failed to initialize SDL", SDL_GetError());
 	}
 
+	int imgFlags = IMG_INIT_PNG;
+	if ((~IMG_Init(imgFlags)) & imgFlags)
+	{
+		throw InitException("Failed to initialize SDL_image", SDL_GetError());
+	}
+
+	if (TTF_Init() == -1)
+	{
+		throw InitException("Failed to initialize SDL_ttf", SDL_GetError());
+	}
+
 	m_Window = Window::Create("Sound Game 01", 800, 600);
 	Renderer::Init();
 	Renderer::SetClearColor(Colors::DARK_RED);

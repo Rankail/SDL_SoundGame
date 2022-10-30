@@ -6,3 +6,4 @@
 
 #include "rts/renderer/Renderer.h"
 #include "rts/renderer/Colors.h"
+#include "rts/renderer/FontLib.h"
