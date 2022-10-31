@@ -1,2 +1,3 @@
-[21:07:34] [warning] RTS: Could not find font 'arial':10
-[21:07:34] [warning] RTS: Tried to remove non-existing font 'a'
+[13:17:32] [trace] RTS: Finished initialization of App
+[13:17:32] [warning] RTS: Could not find font 'arial':10
+[13:17:32] [warning] RTS: Tried to remove non-existing font 'a'

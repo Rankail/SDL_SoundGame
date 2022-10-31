@@ -15,6 +15,9 @@ public:
 	{}
 
 	const std::string what() const {
+		if (error == "") {
+			return "Error during Initialization\n" + msg;
+		}
 		return "Error during Initialization\n" + msg + '\n' + error;
 	}
 };
