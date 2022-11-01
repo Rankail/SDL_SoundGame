@@ -1,6 +1,7 @@
 #pragma once
 
 #include "rts/core/Window.h"
+#include "rts/events/Event.h"
 
 #include <memory>
 
@@ -21,6 +22,8 @@ public:
 
 	void Run();
 	void Close();
+
+	void OnEvent(Event& event);
 
 private:
 	std::shared_ptr<Window> m_Window;

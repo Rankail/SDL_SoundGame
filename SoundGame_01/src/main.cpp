@@ -12,7 +12,6 @@ int main(int argc, char** argv)
 	catch (InitException& e)
 	{
 		LOG_CRITICAL(e.what());
-		std::cin.get();
 		return -1;
 	}
 

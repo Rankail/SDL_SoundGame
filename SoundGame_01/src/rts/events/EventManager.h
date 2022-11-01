@@ -6,8 +6,11 @@
 class EventManager
 {
 public:
+	using EventCallbackFn = std::function<void(Event&)>;
 
+	static void PollEvents();
+	static void SetEventCallback(EventCallbackFn func);
 
 private:
-	std::queue<std::shared_ptr<Event>> m_EventQueue;
+	static EventCallbackFn m_Callback;
 };

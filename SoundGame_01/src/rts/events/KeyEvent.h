@@ -8,6 +8,13 @@ class KeyEvent : public Event
 public:
 	SDL_Scancode GetKeyCode() const { return m_KeyCode; }
 
+	std::string ToString() const override
+	{
+		std::stringstream ss;
+		ss << GetName() << ": " << (int)m_KeyCode;
+		return ss.str();
+	}
+
 	EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 protected:
@@ -26,6 +33,13 @@ public:
 	{}
 
 	bool IsRepeat() const { return m_IsRepeat; }
+
+	std::string ToString() const override
+	{
+		std::stringstream ss;
+		ss << GetName() << ": " << m_KeyCode << "(repeat = " << m_IsRepeat << ")";
+		return ss.str();
+	}
 
 	EVENT_CLASS_TYPE(KeyPressed)
 

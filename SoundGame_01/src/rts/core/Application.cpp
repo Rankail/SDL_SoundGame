@@ -4,6 +4,7 @@
 #include "rts/renderer/Renderer.h"
 #include "rts/core/Exceptions.h"
 #include "rts/core/Log.h"
+#include <rts/events/EventManager.h>
 
 Application* Application::instance = nullptr;
 
@@ -46,10 +47,14 @@ Application::Application()
 		throw InitException("Failed to initialize SDL_ttf", SDL_GetError());
 	}
 
+	EventManager::SetEventCallback(BIND_FN(Application::OnEvent));
+
 	m_Window = Window::Create("Sound Game 01", 800, 600);
 
 	Renderer::Init();
 	Renderer::SetClearColor(Colors::DARK_RED);
+
+
 
 	LOG_TRACE("Finished initialization of App");
 }
@@ -63,23 +68,8 @@ void Application::Run()
 {
 	while (!m_Quit)
 	{
-		SDL_Event e;
-		while (SDL_PollEvent(&e))
-		{
-			if (e.type == SDL_QUIT)
-			{
-				Close();
-			}
-			if (e.type == SDL_KEYUP)
-			{
-				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				{
-					Close();
-				}
-			}
-		}
-
 		//update
+		EventManager::PollEvents();
 
 		//render
 		Renderer::Clear();
@@ -94,4 +84,9 @@ void Application::Run()
 void Application::Close()
 {
 	m_Quit = true;
+}
+
+void Application::OnEvent(Event& event)
+{
+	LOG_INFO(event.ToString());
 }

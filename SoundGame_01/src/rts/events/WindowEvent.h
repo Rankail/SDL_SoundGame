@@ -4,6 +4,7 @@
 
 #include <cstdint>
 
+// Window was resized
 class WindowResizeEvent : public Event
 {
 public:
@@ -14,6 +15,13 @@ public:
 	uint32_t GetWidth() const { return m_Width; }
 	uint32_t GetHeight() const { return m_Height; }
 
+	std::string ToString() const override
+	{
+		std::stringstream ss;
+		ss << GetName() << ": " << m_Width << ", " << m_Height;
+		return ss.str();
+	}
+
 	EVENT_CLASS_TYPE(WindowResize)
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
 
@@ -21,6 +29,7 @@ private:
 	uint32_t m_Width, m_Height;
 };
 
+// IWndow was closed
 class WindowCloseEvent : public Event
 {
 public:
@@ -30,6 +39,7 @@ public:
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
 };
 
+// Window gained focus
 class WindowFocusEvent : public Event
 {
 public:
@@ -39,6 +49,7 @@ public:
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
 };
 
+// WIndow lost focus
 class WindowLostFocusEvent : public Event
 {
 public:
@@ -48,6 +59,27 @@ public:
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
 };
 
+// Window was minimized
+class WindowMinimizedEvent : public Event
+{
+public:
+	WindowMinimizedEvent() = default;
+
+	EVENT_CLASS_TYPE(WindowMinimized)
+	EVENT_CLASS_CATEGORY(EventCategoryWindow)
+};
+
+// Window was restored from minimize (or maximize?)
+class WindowRestoredEvent : public Event
+{
+public:
+	WindowRestoredEvent() = default;
+
+	EVENT_CLASS_TYPE(WindowRestored)
+	EVENT_CLASS_CATEGORY(EventCategoryWindow)
+};
+
+// Window was moved
 class WindowMovedEvent : public Event
 {
 public:
@@ -57,6 +89,13 @@ public:
 
 	int32_t GetWindowNewX() const { return m_NewX; }
 	int32_t GetWindowNewY() const { return m_NewY; }
+
+	std::string ToString() const override
+	{
+		std::stringstream ss;
+		ss << GetName() << ": " << m_NewX << ", " << m_NewY;
+		return ss.str();
+	}
 
 	EVENT_CLASS_TYPE(WindowMoved)
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
