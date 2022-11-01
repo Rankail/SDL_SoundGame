@@ -4,7 +4,8 @@
 #include "rts/renderer/Renderer.h"
 #include "rts/core/Exceptions.h"
 #include "rts/core/Log.h"
-#include <rts/events/EventManager.h>
+#include "rts/events/EventManager.h"
+#include "rts/core/LayerManager.h"
 
 Application* Application::instance = nullptr;
 
@@ -37,7 +38,7 @@ Application::Application()
 	}
 
 	int imgFlags = IMG_INIT_PNG;
-	if ((~IMG_Init(imgFlags)) & imgFlags)
+	if ((IMG_Init(imgFlags) & imgFlags) != imgFlags)
 	{
 		throw InitException("Failed to initialize SDL_image", SDL_GetError());
 	}
@@ -54,8 +55,6 @@ Application::Application()
 	Renderer::Init();
 	Renderer::SetClearColor(Colors::DARK_RED);
 
-
-
 	LOG_TRACE("Finished initialization of App");
 }
 
@@ -66,27 +65,63 @@ Application::~Application()
 
 void Application::Run()
 {
+	uint32_t curTime, prevTime;
+	curTime = SDL_GetTicks();
+	prevTime = curTime;
+	float dt = 0.f;
+
 	while (!m_Quit)
 	{
-		//update
+		// events
 		EventManager::PollEvents();
+
+		uint32_t cTime = SDL_GetTicks();
+		dt = (float)(curTime - prevTime) / 1000.f;
+
+		// update
+		for (auto it = LayerManager::rbegin(); it != LayerManager::rend(); ++it)
+		{
+			if (!(*it)->OnUpdate(dt)) break;
+		}
 
 		//render
 		Renderer::Clear();
 
-		Renderer::SetColor(Colors::DARK_GREEN);
-		Renderer::FillRect(20, 30, 50, 40);
+		for (auto it = LayerManager::begin(); it != LayerManager::end(); ++it)
+		{
+			(*it)->OnRender();
+		}
 
 		Renderer::Present();
+
+		if (LayerManager::Empty()) Close();
 	}
 }
 
 void Application::Close()
 {
+	LayerManager::Clear();
 	m_Quit = true;
 }
 
 void Application::OnEvent(Event& event)
 {
-	LOG_INFO(event.ToString());
+	if (event.GetEventType() != EventType::MouseMoved)
+		LOG_INFO(event.ToString());
+
+	EventSplitter splitter(event);
+	splitter.Dispatch<WindowCloseEvent>(BIND_FN(Application::OnWindowClose));
+
+	for (auto it = LayerManager::rbegin(); it != LayerManager::rend(); ++it)
+	{
+		if (event.Handled) break;
+
+		(*it)->OnEvent(event);
+	}
+}
+
+bool Application::OnWindowClose(WindowCloseEvent& e)
+{
+	Close();
+	return false;
 }

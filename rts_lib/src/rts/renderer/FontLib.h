@@ -9,7 +9,7 @@ class FontLib
 {
 public:
 	FontLib() = delete;
-	~FontLib() = delete;
+	virtual ~FontLib() = delete;
 	FontLib(const FontLib& other) = delete;
 
 	static bool AddFont(const std::string& path, int32_t pointSize, const std::string& name = "");

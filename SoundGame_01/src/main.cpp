@@ -1,5 +1,7 @@
 #include "rts.h"
 
+#include "StarteMenu.h"
+
 int main(int argc, char** argv)
 {
 	Application* app;
@@ -15,8 +17,10 @@ int main(int argc, char** argv)
 
 	FontLib::AddFont("rsc/fonts/arial.ttf", 18, "arial");
 	FontLib::AddFont("rsc/fonts/arial.ttf", 20, "arial");
-	FontLib::GetFont("arial", 10);
-	FontLib::RemoveFont("a");
+
+	std::shared_ptr<StartMenu> startmenu = std::make_shared<StartMenu>();
+	LayerManager::AddLayer("start", startmenu);
+	LayerManager::PushLayer("start");
 
 	app->Run();
 	Application::Delete();

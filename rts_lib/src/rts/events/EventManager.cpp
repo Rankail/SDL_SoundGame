@@ -4,6 +4,7 @@
 #include "WindowEvent.h"
 #include "KeyEvent.h"
 #include "MouseEvent.h"
+#include "rts/core/LayerManager.h"
 
 EventManager::EventCallbackFn EventManager::m_Callback;
 
@@ -81,6 +82,8 @@ void EventManager::PollEvents()
 			m_Callback(e);
 		}
 	}
+
+	LayerManager::ProcessLayerOpQueue();
 }
 
 void EventManager::SetEventCallback(EventCallbackFn func)

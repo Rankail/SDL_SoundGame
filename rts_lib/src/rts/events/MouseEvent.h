@@ -56,19 +56,19 @@ class MouseButtonEvent : public Event
 public:
 	uint8_t GetMouseButton() const { return m_MouseButton; }
 
-	EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
-
-protected:
-	MouseButtonEvent(const uint8_t button)
-		: m_MouseButton(button)
-	{}
-
 	std::string ToString() const override
 	{
 		std::stringstream ss;
 		ss << GetName() << ": " << (int)m_MouseButton;
 		return ss.str();
 	}
+
+	EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
+
+protected:
+	MouseButtonEvent(const uint8_t button)
+		: m_MouseButton(button)
+	{}
 
 	uint8_t m_MouseButton;
 };

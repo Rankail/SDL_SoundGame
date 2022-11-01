@@ -29,7 +29,7 @@ private:
 	uint32_t m_Width, m_Height;
 };
 
-// IWndow was closed
+// Window was closed
 class WindowCloseEvent : public Event
 {
 public:

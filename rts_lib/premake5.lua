@@ -39,23 +39,12 @@ project "rts_lib"
         "SDL2_image"
     }
 
-    --[[prebuildcommands
-    {
-        "cd",
-        '{COPYFILE} "%{wks.location}vendor/SDL2-2.0.22/lib/*.dll" "%{wks.location}%{prj.name}"',
-        '{COPYFILE} "%{wks.location}vendor/SDL2_ttf-2.0.15/dlls/*.dll" "%{wks.location}%{prj.name}"',
-        '{COPYFILE} "%{wks.location}vendor/SDL2_image-2.0.5/dlls/*.dll" "%{wks.location}%{prj.name}"',
-        ('{COPYFILE} "%{wks.location}vendor/SDL2-2.0.22/lib/*.dll" "%{wks.location}bin/"' .. outputdir .. '"/%{prj.name}'),
-        ('{COPYFILE} "%{wks.location}vendor/SDL2_ttf-2.0.15/dlls/*.dll" "%{wks.location}bin/"' .. outputdir .. '"/%{prj.name}'),
-        ('{COPYFILE} "%{wks.location}vendor/SDL2_image-2.0.5/dlls/*.dll" "%{wks.location}bin/"' .. outputdir .. '"/%{prj.name}'),
-    }]]
-
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"
 
     filter "configurations:Release"
         defines { "NDEBUG" }
-        optimize "On"
+        optimize "Full"
 
     

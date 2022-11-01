@@ -2,6 +2,7 @@
 
 #include "rts/core/Window.h"
 #include "rts/events/Event.h"
+#include "rts/events/WindowEvent.h"
 
 #include <memory>
 
@@ -24,6 +25,7 @@ public:
 	void Close();
 
 	void OnEvent(Event& event);
+	bool OnWindowClose(WindowCloseEvent& e);
 
 private:
 	std::shared_ptr<Window> m_Window;

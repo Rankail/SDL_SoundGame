@@ -43,6 +43,6 @@ project "SoundGame_01"
 
     filter "configurations:Release"
         defines { "NDEBUG" }
-        optimize "On"
+        optimize "Full"
 
     

@@ -4,6 +4,8 @@
 #include "rts/core/Application.h"
 #include "rts/core/Exceptions.h"
 #include "rts/core/Log.h"
+#include "rts/core/LayerManager.h"
+#include "rts/core/Layer.h"
 
 #include "rts/events/EventManager.h"
 #include "rts/events/WindowEvent.h"
