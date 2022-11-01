@@ -1,6 +1,4 @@
-#include "rtspch.h"
 #include "rts.h"
-#include "rts/core/Log.h"
 
 int main(int argc, char** argv)
 {

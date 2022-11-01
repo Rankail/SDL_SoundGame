@@ -13,4 +13,5 @@ workspace "SoundGame"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+include "rts_lib"
 include "SoundGame_01"

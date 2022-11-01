@@ -7,3 +7,4 @@ bin
 bin-int
 setup.bat
 SoundGame_01/Rts.log
+SoundGame_01/*.dll
