@@ -61,3 +61,15 @@ void Renderer::FillRect(int32_t x, int32_t y, int32_t w, int32_t h)
 {
 	SDL_RenderFillRect(s_Data.renderer, new SDL_Rect{x, y, w, h});
 }
+
+SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface)
+{
+	SDL_Texture* tex = SDL_CreateTextureFromSurface(s_Data.renderer, surface);
+	if (tex == NULL)
+	{
+		LOG_WARN("Failed to create Texture from Surface");
+		SDL_FreeSurface(surface);
+		return nullptr;
+	}
+	return tex;
+}

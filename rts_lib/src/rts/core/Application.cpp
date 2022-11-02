@@ -3,7 +3,6 @@
 
 #include "rts/renderer/Renderer.h"
 #include "rts/core/Exceptions.h"
-#include "rts/core/Log.h"
 #include "rts/events/EventManager.h"
 #include "rts/core/LayerManager.h"
 

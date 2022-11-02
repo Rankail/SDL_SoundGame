@@ -1,8 +1,6 @@
 #include "rtspch.h"
 #include "FontLib.h"
 
-#include "rts/core/Log.h"
-
 std::unordered_map<std::string, std::unordered_map<int32_t, TTF_Font*>> FontLib::m_Fonts = std::unordered_map<std::string, std::unordered_map<int32_t, TTF_Font*>>();
 
 bool FontLib::AddFont(const std::string& path, int32_t pointSize, const std::string& name)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "rts/core/Base.h"
 #include <string>
 #include <sstream>
+#include "rts/core/Base.h"
 
 enum class EventType
 {

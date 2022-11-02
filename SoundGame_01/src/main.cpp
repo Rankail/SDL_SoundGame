@@ -1,6 +1,6 @@
 #include "rts.h"
 
-#include "StarteMenu.h"
+#include "StartMenu.h"
 
 int main(int argc, char** argv)
 {

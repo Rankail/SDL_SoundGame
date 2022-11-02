@@ -2,7 +2,6 @@
 #include "Window.h"
 
 #include "rts/core/Exceptions.h"
-#include "rts/core/Log.h"
 
 std::shared_ptr<Window> Window::Create(const char* title, uint32_t width, uint32_t height)
 {

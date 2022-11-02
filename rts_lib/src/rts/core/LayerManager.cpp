@@ -1,7 +1,6 @@
 #include "rtspch.h"
 
 #include "LayerManager.h"
-#include "rts/core/Log.h"
 
 std::unordered_map<std::string, std::shared_ptr<Layer>> LayerManager::m_Storage = std::unordered_map<std::string, std::shared_ptr<Layer>>();
 std::list<std::shared_ptr<Layer>> LayerManager::m_Stack = std::list<std::shared_ptr<Layer>>();

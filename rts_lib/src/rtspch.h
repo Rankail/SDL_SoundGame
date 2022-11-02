@@ -18,3 +18,6 @@
 #include <array>
 #include <unordered_map>
 #include <queue>
+
+#include "rts/core/Base.h"
+#include "rts/core/Log.h"

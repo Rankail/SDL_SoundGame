@@ -20,4 +20,6 @@ public:
 	static void DrawRect(int32_t x, int32_t y, int32_t w, int32_t h);
 	static void FillRect(int32_t x, int32_t y, int32_t w, int32_t h);
 
+	static SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
+
 };

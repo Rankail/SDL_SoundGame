@@ -1,4 +1,4 @@
-#include "StarteMenu.h"
+#include "StartMenu.h"
 
 #include "rts/events/MouseEvent.h"
 
