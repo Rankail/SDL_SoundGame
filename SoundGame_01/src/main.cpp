@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	FontLib::AddFont("rsc/fonts/arial.ttf", 18, "arial");
 	FontLib::AddFont("rsc/fonts/arial.ttf", 20, "arial");
 
-	std::shared_ptr<StartMenu> startmenu = std::make_shared<StartMenu>();
+	auto startmenu = std::make_shared<StartMenu>();
 	LayerManager::AddLayer("start", startmenu);
 	LayerManager::PushLayer("start");
 

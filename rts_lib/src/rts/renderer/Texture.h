@@ -9,6 +9,7 @@ class Texture
 {
 public:
 	Texture(const std::string& path);
+	Texture(SDL_Surface* surface);
 	virtual ~Texture();
 
 	SDL_Texture* LoadTexture(const std::string& path);

@@ -1,7 +1,8 @@
 #include "rtspch.h"
 #include "FontLib.h"
 
-std::unordered_map<std::string, std::unordered_map<int32_t, TTF_Font*>> FontLib::m_Fonts = std::unordered_map<std::string, std::unordered_map<int32_t, TTF_Font*>>();
+std::unordered_map<std::string, std::unordered_map<int32_t, std::shared_ptr<Font>>> FontLib::m_Fonts =
+    std::unordered_map<std::string, std::unordered_map<int32_t, std::shared_ptr<Font>>>();
 
 bool FontLib::AddFont(const std::string& path, int32_t pointSize, const std::string& name)
 {
@@ -20,29 +21,24 @@ bool FontLib::AddFont(const std::string& path, int32_t pointSize, const std::str
     return AddFont(font, path.substr(lastSlash, count), pointSize);
 }
 
-bool FontLib::AddFont(TTF_Font* font, const std::string& name, int32_t pointSize)
+bool FontLib::AddFont(std::shared_ptr<Font> font, const std::string& name, int32_t pointSize)
 {
     auto it = m_Fonts.find(name);
     if (it == m_Fonts.end())
     {
-        return m_Fonts.emplace(name, std::unordered_map<int32_t, TTF_Font*>{ {pointSize, font}}).second;
+        return m_Fonts.emplace(name, std::unordered_map<int32_t, std::shared_ptr<Font>>{ {pointSize, font}}).second;
     }
 
     it->second[pointSize] = font;
     return true;
 }
 
-TTF_Font* FontLib::LoadFont(const std::string& path, int32_t pointSize)
+std::shared_ptr<Font> FontLib::LoadFont(const std::string& path, int32_t pointSize)
 {
-    TTF_Font* font = TTF_OpenFont(path.c_str(), pointSize);
-    if (font == NULL) {
-        LOG_WARN("Failed to load font from '{}'", path);
-        return nullptr;
-    }
-    return font;
+    return std::make_shared<Font>(path, pointSize);
 }
 
-TTF_Font* FontLib::GetFont(const std::string& name, int32_t pointSize)
+std::shared_ptr<Font> FontLib::GetFont(const std::string& name, int32_t pointSize)
 {
     auto it = m_Fonts.find(name);
     if (it != m_Fonts.end())

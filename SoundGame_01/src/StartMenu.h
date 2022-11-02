@@ -5,6 +5,8 @@
 class StartMenu : public Layer
 {
 public:
+	virtual void OnCreate() override;
+
 	virtual void OnEvent(Event& e) override;
 	bool OnMousePress(MouseButtonPressedEvent& e);
 	bool OnMouseRelease(MouseButtonReleasedEvent& e);
@@ -14,4 +16,5 @@ public:
 
 private:
 	bool m_Pressed = false;
+	std::shared_ptr<Text> m_Title;
 };

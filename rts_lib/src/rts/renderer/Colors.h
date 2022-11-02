@@ -7,6 +7,7 @@ typedef struct Color
 	uint8_t r, g, b, a;
 	Color(uint8_t r = 0x00, uint8_t g = 0x00, uint8_t b = 0x00, uint8_t a = 0xFF)
 		: r(r), g(g), b(b), a(a) {}
+	SDL_Color toSDL() { return SDL_Color{ r, g, b, a }; }
 } Color;
 
 namespace Colors {

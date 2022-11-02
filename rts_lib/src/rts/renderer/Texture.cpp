@@ -8,6 +8,13 @@ Texture::Texture(const std::string& path)
 	LoadTexture(path);
 }
 
+Texture::Texture(SDL_Surface* surface)
+{
+	auto tex = Renderer::CreateTextureFromSurface(surface);
+	m_Handle = tex;
+	SDL_QueryTexture(tex, NULL, NULL, &m_Width, &m_Height);
+}
+
 Texture::~Texture()
 {
 	SDL_DestroyTexture(m_Handle);

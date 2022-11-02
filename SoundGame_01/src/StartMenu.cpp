@@ -2,6 +2,12 @@
 
 #include "rts/events/MouseEvent.h"
 
+void StartMenu::OnCreate()
+{
+	TextureLib::AddTexture("rsc/textures/Bounce.png", "bounce");
+	m_Title = std::make_shared<Text>("Hello World!", "arial", 18);
+}
+
 void StartMenu::OnEvent(Event& e)
 {
 	EventSplitter splitter(e);
@@ -49,4 +55,6 @@ void StartMenu::OnRender()
 	else			Renderer::SetColor(Colors::OLIVE);
 	
 	Renderer::FillRect(20, 30, 50, 40);
+	Renderer::RenderTexture(TextureLib::GetTexture("bounce"), 50, 50, 200, 200);
+	Renderer::RenderText(m_Title, 400, 400);
 }

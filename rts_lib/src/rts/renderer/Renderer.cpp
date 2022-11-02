@@ -3,6 +3,8 @@
 
 #include "rts/core/Application.h"
 #include "rts/core/Exceptions.h"
+#include "rts/renderer/Texture.h"
+#include "rts/renderer/Text.h"
 
 struct RendererData
 {
@@ -60,6 +62,25 @@ void Renderer::DrawRect(int32_t x, int32_t y, int32_t w, int32_t h)
 void Renderer::FillRect(int32_t x, int32_t y, int32_t w, int32_t h)
 {
 	SDL_RenderFillRect(s_Data.renderer, new SDL_Rect{x, y, w, h});
+}
+
+void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y)
+{
+	SDL_Rect dstRect = { x, y, tex->GetWidth(), tex->GetHeight() };
+	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
+}
+
+void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y, int32_t w, int32_t h)
+{
+	SDL_Rect dstRect = { x, y, w, h };
+	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
+}
+
+void Renderer::RenderText(std::shared_ptr<Text> text, int32_t x, int32_t y)
+{
+	auto tex = text->GetTexture();
+	SDL_Rect dstRect = { x, y, text->GetWidth(), text->GetHeight() };
+	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
 }
 
 SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface)

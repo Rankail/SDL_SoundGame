@@ -16,3 +16,6 @@
 #include "rts/renderer/Renderer.h"
 #include "rts/renderer/Colors.h"
 #include "rts/renderer/FontLib.h"
+#include "rts/renderer/Texture.h"
+#include "rts/renderer/TextureLib.h"
+#include "rts/renderer/Text.h"
