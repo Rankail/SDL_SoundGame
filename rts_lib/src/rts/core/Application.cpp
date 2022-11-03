@@ -52,7 +52,6 @@ Application::Application()
 	m_Window = Window::Create("Sound Game 01", 800, 600);
 
 	Renderer::Init();
-	Renderer::SetClearColor(Colors::DARK_RED);
 
 	LOG_TRACE("Finished initialization of App");
 }
@@ -110,6 +109,7 @@ void Application::OnEvent(Event& event)
 
 	EventSplitter splitter(event);
 	splitter.Dispatch<WindowCloseEvent>(BIND_FN(Application::OnWindowClose));
+	splitter.Dispatch<WindowResizeEvent>(BIND_FN(Application::OnWindowResize));
 
 	for (auto it = LayerManager::rbegin(); it != LayerManager::rend(); ++it)
 	{
@@ -123,4 +123,14 @@ bool Application::OnWindowClose(WindowCloseEvent& e)
 {
 	Close();
 	return false;
+}
+
+bool Application::OnWindowResize(WindowResizeEvent& e)
+{
+	m_Window->OnResize(e.GetWidth(), e.GetHeight());
+	for (auto it = LayerManager::begin(); it != LayerManager::end(); ++it)
+	{
+		(*it)->OnResize(e.GetWidth(), e.GetHeight());
+	}
+	return true;
 }

@@ -1,6 +1,7 @@
 #include "rtspch.h"
 
 #include "LayerManager.h"
+#include "Application.h"
 
 std::unordered_map<std::string, std::shared_ptr<Layer>> LayerManager::m_Storage = std::unordered_map<std::string, std::shared_ptr<Layer>>();
 std::list<std::shared_ptr<Layer>> LayerManager::m_Stack = std::list<std::shared_ptr<Layer>>();
@@ -41,6 +42,8 @@ void LayerManager::AddLayer(const std::string& name, std::shared_ptr<Layer> laye
 {
 	m_Storage[name] = layer;
 	layer->OnCreate();
+	auto window = Application::GetInstance()->GetWindow();
+	layer->OnResize(window->GetWindowWidth(), window->GetWindowHeight());
 }
 
 void LayerManager::PushLayer(const std::string& name)

@@ -15,8 +15,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	FontLib::AddFont("rsc/fonts/arial.ttf", 18, "arial");
-	FontLib::AddFont("rsc/fonts/arial.ttf", 20, "arial");
+	Renderer::SetClearColor(Colors::BLACK);
 
 	auto startmenu = std::make_shared<StartMenu>();
 	LayerManager::AddLayer("start", startmenu);

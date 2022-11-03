@@ -8,12 +8,12 @@
 class WindowResizeEvent : public Event
 {
 public:
-	WindowResizeEvent(uint32_t width, uint32_t height)
+	WindowResizeEvent(int32_t width, int32_t height)
 		: m_Width(width), m_Height(height)
 	{}
 
-	uint32_t GetWidth() const { return m_Width; }
-	uint32_t GetHeight() const { return m_Height; }
+	int32_t GetWidth() const { return m_Width; }
+	int32_t GetHeight() const { return m_Height; }
 
 	std::string ToString() const override
 	{
@@ -26,7 +26,7 @@ public:
 	EVENT_CLASS_CATEGORY(EventCategoryWindow)
 
 private:
-	uint32_t m_Width, m_Height;
+	int32_t m_Width, m_Height;
 };
 
 // Window was closed

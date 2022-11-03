@@ -26,6 +26,7 @@ public:
 
 	void OnEvent(Event& event);
 	bool OnWindowClose(WindowCloseEvent& e);
+	bool OnWindowResize(WindowResizeEvent& e);
 
 private:
 	std::shared_ptr<Window> m_Window;

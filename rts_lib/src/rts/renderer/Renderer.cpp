@@ -76,10 +76,10 @@ void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y,
 	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
 }
 
-void Renderer::RenderText(std::shared_ptr<Text> text, int32_t x, int32_t y)
+void Renderer::RenderText(std::shared_ptr<Text> text)
 {
 	auto tex = text->GetTexture();
-	SDL_Rect dstRect = { x, y, text->GetWidth(), text->GetHeight() };
+	SDL_Rect dstRect = { text->GetTopLeftX(), text->GetTopLeftY(), text->GetWidth(), text->GetHeight()};
 	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
 }
 

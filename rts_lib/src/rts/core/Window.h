@@ -14,9 +14,13 @@ public:
 
 	SDL_Window* GetSDLWindow() { return m_Window; }
 
-	SDL_Point GetWindowSize();
+	void OnResize(int32_t width, int32_t height);
+
+	int32_t GetWindowWidth() const { return m_Width; }
+	int32_t GetWindowHeight() const { return m_Height; }
 	uint32_t GetWindowFlags() { return SDL_GetWindowFlags(m_Window); }
 
 private:
+	int32_t m_Width, m_Height;
 	SDL_Window* m_Window;
 };

@@ -16,7 +16,8 @@ public:
 	virtual void OnPush() {}
 	virtual void OnPop() {}
 
-	virtual bool OnUpdate(float dt) { return true; }
 	virtual void OnEvent(Event& e) {}
+
+	virtual bool OnUpdate(float dt) { return true; }
 	virtual void OnRender() {}
 };

@@ -3,12 +3,13 @@
 #include "rts/renderer/Texture.h"
 #include "rts/renderer/Colors.h"
 #include "rts/renderer/Font.h"
+#include "rts/renderer/Drawable.h"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <memory>
 
-class Text
+class Text : public Drawable
 {
 private:
 	void CreateTexture();

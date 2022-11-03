@@ -4,8 +4,15 @@
 
 void StartMenu::OnCreate()
 {
-	TextureLib::AddTexture("rsc/textures/Bounce.png", "bounce");
-	m_Title = std::make_shared<Text>("Hello World!", "arial", 18);
+	FontLib::AddFont("rsc/fonts/arial.ttf", 72, "arial");
+
+	m_Title = std::make_shared<Text>("Hello World!", "arial", 72);
+}
+
+void StartMenu::OnResize(int32_t width, int32_t height)
+{
+	m_Title->SetAlignment(Alignment::CENTER, Alignment::CENTER);
+	m_Title->SetPos(width / 2, height / 2);
 }
 
 void StartMenu::OnEvent(Event& e)
@@ -55,6 +62,5 @@ void StartMenu::OnRender()
 	else			Renderer::SetColor(Colors::OLIVE);
 	
 	Renderer::FillRect(20, 30, 50, 40);
-	Renderer::RenderTexture(TextureLib::GetTexture("bounce"), 50, 50, 200, 200);
-	Renderer::RenderText(m_Title, 400, 400);
+	Renderer::RenderText(m_Title);
 }
