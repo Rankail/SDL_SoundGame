@@ -10,4 +10,7 @@ public:
 	bool OnKeyRelease(KeyReleasedEvent& e);
 
 	virtual void OnRender() override;
+
+private:
+	std::shared_ptr<Button> m_Button;
 };

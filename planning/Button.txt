@@ -1,0 +1,16 @@
+State: None, Pressed, Held, Released
+OnClick-> if (hover) -> Pressed;
+OnRelease-> if (hover) -> Released else None;
+Update: if pressed-> if !hover -> None;
+
+Hover
+
+Size? -> Padding
+
+//common behaviour:
+if clicked and hover set active;
+if not hover but still pressed not active
+but if hover again while still pressed active again
+Action on release
+
+Held-Graphic if active && hover

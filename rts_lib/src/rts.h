@@ -19,3 +19,5 @@
 #include "rts/renderer/Texture.h"
 #include "rts/renderer/TextureLib.h"
 #include "rts/renderer/Text.h"
+
+#include "rts/widgets/Button.h"

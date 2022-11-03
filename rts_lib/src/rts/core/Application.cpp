@@ -70,9 +70,6 @@ void Application::Run()
 
 	while (!m_Quit)
 	{
-		// events
-		EventManager::PollEvents();
-
 		uint32_t cTime = SDL_GetTicks();
 		dt = (float)(curTime - prevTime) / 1000.f;
 
@@ -91,6 +88,9 @@ void Application::Run()
 		}
 
 		Renderer::Present();
+
+		// events
+		EventManager::PollEvents();
 
 		if (LayerManager::Empty()) Close();
 	}
