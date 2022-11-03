@@ -18,4 +18,5 @@ public:
 private:
 	bool m_Pressed = false;
 	std::shared_ptr<Text> m_Title;
+	std::shared_ptr<Text> m_PressToStart;
 };

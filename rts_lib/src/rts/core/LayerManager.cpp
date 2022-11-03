@@ -72,6 +72,23 @@ void LayerManager::PopLayer(std::shared_ptr<Layer> layer)
 	m_LayerOpQueue.emplace(LayerOp::Pop, layer);
 }
 
+void LayerManager::SwitchTo(const std::string& name)
+{
+	auto it = m_Storage.find(name);
+	if (it == m_Storage.end())
+	{
+		LOG_WARN("Failed to find and switch to Layer '{}'", name);
+		return;
+	}
+	SwitchTo(it->second);
+}
+
+void LayerManager::SwitchTo(std::shared_ptr<Layer> layer)
+{
+	Clear();
+	PushLayer(layer);
+}
+
 void LayerManager::Clear()
 {
 	m_LayerOpQueue.emplace(LayerOp::Clear, nullptr);

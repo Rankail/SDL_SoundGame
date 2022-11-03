@@ -1,18 +1,25 @@
 #include "StartMenu.h"
 
-#include "rts/events/MouseEvent.h"
+#include "Menu.h"
 
 void StartMenu::OnCreate()
 {
-	FontLib::AddFont("rsc/fonts/arial.ttf", 72, "arial");
+	LayerManager::AddLayer("menu", std::make_shared<Menu>());
 
-	m_Title = std::make_shared<Text>("Hello World!", "arial", 72);
+	FontLib::AddFont("rsc/fonts/arialbd.ttf", 72, "arial");
+	FontLib::AddFont("rsc/fonts/arialbd.ttf", 20, "arial");
+
+	m_Title = std::make_shared<Text>("TETRIS", "arial", 72);
+	m_PressToStart = std::make_shared<Text>("< Press Enter >", "arial", 20);
 }
 
 void StartMenu::OnResize(int32_t width, int32_t height)
 {
 	m_Title->SetAlignment(Alignment::CENTER, Alignment::CENTER);
-	m_Title->SetPos(width / 2, height / 2);
+	m_Title->SetPos(width / 2, height / 3);
+
+	m_PressToStart->SetAlignment(Alignment::CENTER, Alignment::CENTER);
+	m_PressToStart->SetPos(width / 2, height * 2 / 3);
 }
 
 void StartMenu::OnEvent(Event& e)
@@ -49,7 +56,12 @@ bool StartMenu::OnKeyRelease(KeyReleasedEvent& e)
 {
 	if (e.GetKeyCode() == SDL_SCANCODE_ESCAPE)
 	{
-		LayerManager::PopLayer();
+		LayerManager::Clear();
+		return true;
+	}
+	else if (e.GetKeyCode() == SDL_SCANCODE_RETURN)
+	{
+		LayerManager::SwitchTo("menu");
 		return true;
 	}
 
@@ -58,9 +70,10 @@ bool StartMenu::OnKeyRelease(KeyReleasedEvent& e)
 
 void StartMenu::OnRender()
 {
-	if (m_Pressed)	Renderer::SetColor(Colors::LIGHT_BLUE);
-	else			Renderer::SetColor(Colors::OLIVE);
-	
-	Renderer::FillRect(20, 30, 50, 40);
+	Renderer::SetColor(Colors::TURQOISE);
+	Renderer::FillRect(m_Title->GetTopLeftX()-15, m_Title->GetTopLeftY()-15, m_Title->GetWidth()+30, m_Title->GetHeight()+30);
+	Renderer::SetColor(Colors::BLACK);
+	Renderer::FillRect(m_Title->GetTopLeftX()-10, m_Title->GetTopLeftY()-10, m_Title->GetWidth()+20, m_Title->GetHeight()+20);
 	Renderer::RenderText(m_Title);
+	Renderer::RenderText(m_PressToStart);
 }

@@ -16,7 +16,7 @@ void Text::CreateTexture()
 }
 
 Text::Text(const std::string& text, const std::string& font, int32_t pointSize, Color color)
-	: m_Text(text), m_Font(FontLib::GetFont(font, pointSize)), m_Color(color)
+	: Drawable(), m_Text(text), m_Font(FontLib::GetFont(font, pointSize)), m_Color(color)
 {
 	CreateTexture();
 }

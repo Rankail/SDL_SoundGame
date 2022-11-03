@@ -29,6 +29,9 @@ public:
 	static void PopLayer();
 	static void PopLayer(std::shared_ptr<Layer> layer);
 
+	static void SwitchTo(const std::string& name);
+	static void SwitchTo(std::shared_ptr<Layer> layer);
+
 	static void Clear();
 	
 	static std::shared_ptr<Layer> GetLayer(const std::string& name);
