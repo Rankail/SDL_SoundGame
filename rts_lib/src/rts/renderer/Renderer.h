@@ -26,8 +26,6 @@ public:
 	static void RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y);
 	static void RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y, int32_t w, int32_t h);
 
-	static void RenderText(std::shared_ptr<Text> text);
-
 	static SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
 
 };

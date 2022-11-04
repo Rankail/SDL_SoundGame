@@ -1,5 +1,15 @@
 #include "Menu.h"
 
+void Menu::OnCreate()
+{
+	m_Button = std::make_shared<Button>();
+	m_Button->SetText()
+}
+
+void Menu::OnResize(int32_t width, int32_t height)
+{
+}
+
 void Menu::OnEvent(Event& e)
 {
 	EventSplitter splitter(e);

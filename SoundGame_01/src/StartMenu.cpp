@@ -74,6 +74,6 @@ void StartMenu::OnRender()
 	Renderer::FillRect(m_Title->GetTopLeftX()-15, m_Title->GetTopLeftY()-15, m_Title->GetWidth()+30, m_Title->GetHeight()+30);
 	Renderer::SetColor(Colors::BLACK);
 	Renderer::FillRect(m_Title->GetTopLeftX()-10, m_Title->GetTopLeftY()-10, m_Title->GetWidth()+20, m_Title->GetHeight()+20);
-	Renderer::RenderText(m_Title);
-	Renderer::RenderText(m_PressToStart);
+	m_Title->Render();
+	m_PressToStart->Render();
 }

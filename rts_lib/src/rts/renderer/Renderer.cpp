@@ -4,7 +4,6 @@
 #include "rts/core/Application.h"
 #include "rts/core/Exceptions.h"
 #include "rts/renderer/Texture.h"
-#include "rts/renderer/Text.h"
 
 struct RendererData
 {
@@ -73,13 +72,6 @@ void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y)
 void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y, int32_t w, int32_t h)
 {
 	SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
-}
-
-void Renderer::RenderText(std::shared_ptr<Text> text)
-{
-	auto tex = text->GetTexture();
-	SDL_Rect dstRect = { text->GetTopLeftX(), text->GetTopLeftY(), text->GetWidth(), text->GetHeight()};
 	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
 }
 

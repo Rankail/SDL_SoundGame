@@ -3,7 +3,7 @@
 #include "rts/renderer/Texture.h"
 #include "rts/renderer/Colors.h"
 #include "rts/renderer/Font.h"
-#include "rts/renderer/Drawable.h"
+#include "rts/widgets/Drawable.h"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -15,6 +15,7 @@ private:
 	void CreateTexture();
 
 public:
+	Text();
 	Text(const std::string& text, const std::string& font, int32_t pointSize, Color color = Colors::WHITE);
 	Text(const std::string& text, std::shared_ptr<Font> font, Color color = Colors::WHITE);
 	virtual ~Text();
@@ -31,11 +32,14 @@ public:
 	void SetFont(std::shared_ptr<Font> font);
 	void SetFont(const std::string& font, int32_t pointSize);
 
+	bool IsCreated() const { return m_Texture != nullptr; }
+
+	void Render();
 
 private:
-	std::shared_ptr<Font> m_Font;
-	Color m_Color;
-	std::string m_Text;
+	std::shared_ptr<Font> m_Font = nullptr;
+	Color m_Color = Colors::NONE;
+	std::string m_Text = "";
 
 	std::shared_ptr<Texture> m_Texture;
 };
