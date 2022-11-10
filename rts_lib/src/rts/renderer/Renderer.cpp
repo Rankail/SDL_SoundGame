@@ -63,16 +63,10 @@ void Renderer::FillRect(int32_t x, int32_t y, int32_t w, int32_t h)
 	SDL_RenderFillRect(s_Data.renderer, new SDL_Rect{x, y, w, h});
 }
 
-void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y)
+void Renderer::RenderTexture(SDL_Texture* tex, int32_t x, int32_t y, int32_t w, int32_t h)
 {
-	SDL_Rect dstRect = { x, y, tex->GetWidth(), tex->GetHeight() };
-	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
-}
-
-void Renderer::RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y, int32_t w, int32_t h)
-{
-	SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopy(s_Data.renderer, tex->GetTexture(), NULL, &dstRect);
+	SDL_Rect dstRect = {x, y, w, h};
+	SDL_RenderCopy(s_Data.renderer, tex, NULL, &dstRect);
 }
 
 SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface)

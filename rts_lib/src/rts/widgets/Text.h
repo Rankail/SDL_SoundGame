@@ -37,7 +37,7 @@ public:
 	void Render();
 
 private:
-	std::shared_ptr<Font> m_Font = nullptr;
+	std::shared_ptr<Font> m_Font;
 	Color m_Color = Colors::NONE;
 	std::string m_Text = "";
 

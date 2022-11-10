@@ -12,6 +12,7 @@ public:
 	virtual void OnEvent(Event& e) override;
 	bool OnKeyRelease(KeyReleasedEvent& e);
 
+	virtual bool OnUpdate(float dt) override;
 	virtual void OnRender() override;
 
 private:

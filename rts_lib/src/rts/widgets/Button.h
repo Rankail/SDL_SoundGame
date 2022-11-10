@@ -19,10 +19,10 @@ public:
 	void SetFont(std::shared_ptr<Font> font);
 	void SetTextColor(Color color);
 	void SetBackgroundColor(Color color);
+	void SetActiveBackgroundColor(Color color);
 
-	virtual void SetPos(int32_t x, int32_t y) override;
-	virtual void SetX(int32_t x) override;
-	virtual void SetY(int32_t y) override;
+	virtual void SizePosUpdateBefore() override;
+	virtual void SizePosUpdateAfter() override;
 
 	bool IsHovered();
 	bool IsClicked();
@@ -32,6 +32,7 @@ public:
 	void OnEvent(Event& e);
 	bool OnMouseClicked(MouseButtonPressedEvent& e);
 	bool OnMouseReleased(MouseButtonReleasedEvent& e);
+	bool OnMouseMoved(MouseMovedEvent& e);
 
 	void Update();
 	void Render(); //TODO
@@ -42,6 +43,7 @@ private:
 	bool m_PrevPressed = false;
 
 	Color m_BgColor = Colors::NONE;
+	Color m_BgActive = Colors::NONE;
 
 	std::shared_ptr<Text> m_Text;
 };

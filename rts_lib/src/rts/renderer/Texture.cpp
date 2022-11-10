@@ -3,6 +3,9 @@
 #include "Texture.h"
 #include "rts/renderer/Renderer.h"
 
+Texture::Texture()
+{ }
+
 Texture::Texture(const std::string& path)
 {
 	LoadTexture(path);
@@ -11,13 +14,13 @@ Texture::Texture(const std::string& path)
 Texture::Texture(SDL_Surface* surface)
 {
 	auto tex = Renderer::CreateTextureFromSurface(surface);
-	m_Handle = tex;
+	m_Texture = tex;
 	SDL_QueryTexture(tex, NULL, NULL, &m_Width, &m_Height);
 }
 
 Texture::~Texture()
 {
-	SDL_DestroyTexture(m_Handle);
+	SDL_DestroyTexture(m_Texture);
 }
 
 SDL_Texture* Texture::LoadTexture(const std::string& path)
@@ -32,8 +35,27 @@ SDL_Texture* Texture::LoadTexture(const std::string& path)
 	tex = Renderer::CreateTextureFromSurface(tempSurf);
 	if (tex == nullptr) return nullptr;
 	
-	m_Handle = tex;
+	m_Texture = tex;
 	SDL_QueryTexture(tex, NULL, NULL, &m_Width, &m_Height);
 
 	return tex;
+}
+
+void Texture::SetTexture(SDL_Surface* surf)
+{
+	auto tex = Renderer::CreateTextureFromSurface(surf);
+	m_Texture = tex;
+	SDL_QueryTexture(tex, NULL, NULL, &m_Width, &m_Height);
+}
+
+void Texture::Render(int32_t x, int32_t y)
+{
+	if (!m_Texture) return;
+	Renderer::RenderTexture(m_Texture, x, y, m_Width, m_Height);
+}
+
+void Texture::Render(int32_t x, int32_t y, int32_t w, int32_t h)
+{
+	if (!m_Texture) return;
+	Renderer::RenderTexture(m_Texture, x, y, w, h);
 }

@@ -5,7 +5,9 @@
 #include "rts/renderer/Renderer.h"
 
 Button::Button()
-{}
+{
+	m_Text = std::make_shared<Text>();
+}
 
 Button::~Button()
 {
@@ -14,21 +16,25 @@ Button::~Button()
 void Button::SetText(const std::string& text)
 {
 	m_Text->SetText(text);
+	SizePosUpdate();
 }
 
 void Button::SetFont(const std::string& font, int32_t pointSize)
 {
 	m_Text->SetFont(font, pointSize);
+	SizePosUpdate();
 }
 
 void Button::SetFont(std::shared_ptr<Font> font)
 {
 	m_Text->SetFont(font);
+	SizePosUpdate();
 }
 
 void Button::SetTextColor(Color color)
 {
 	m_Text->SetColor(color);
+	SizePosUpdate();
 }
 
 void Button::SetBackgroundColor(Color color)
@@ -36,22 +42,20 @@ void Button::SetBackgroundColor(Color color)
 	m_BgColor = color;
 }
 
-void Button::SetPos(int32_t x, int32_t y)
+void Button::SetActiveBackgroundColor(Color color)
 {
-	m_Text->SetPos(x + m_PadL, y + m_PadT);
-	Drawable::SetPos(x, y);
+	m_BgActive = color;
 }
 
-void Button::SetX(int32_t x)
+void Button::SizePosUpdateBefore()
 {
-	m_Text->SetX(x + m_PadL);
-	Drawable::SetX(x);
+	m_ObjWidth = m_Text->GetWidth();
+	m_ObjHeight = m_Text->GetHeight();
 }
 
-void Button::SetY(int32_t y)
+void Button::SizePosUpdateAfter()
 {
-	m_Text->SetY(y + m_PadL);
-	Drawable::SetY(y);
+	m_Text->SetPos(m_OTLX, m_OTLY);
 }
 
 bool Button::IsHovered()
@@ -79,6 +83,7 @@ void Button::OnEvent(Event& e)
 	EventSplitter splitter(e);
 	splitter.Dispatch<MouseButtonPressedEvent>(BIND_FN(Button::OnMouseClicked));
 	splitter.Dispatch<MouseButtonReleasedEvent>(BIND_FN(Button::OnMouseReleased));
+	splitter.Dispatch<MouseMovedEvent>(BIND_FN(Button::OnMouseMoved));
 }
 
 bool Button::OnMouseClicked(MouseButtonPressedEvent& e)
@@ -102,6 +107,12 @@ bool Button::OnMouseReleased(MouseButtonReleasedEvent& e)
 	return false;
 }
 
+bool Button::OnMouseMoved(MouseMovedEvent& e)
+{
+	m_Hover = (e.GetX() >= m_TLX && e.GetY() >= m_TLY && e.GetX() < m_TLX + GetWidth() && e.GetY() < m_TLY + GetHeight());
+	return false;
+}
+
 void Button::Update()
 {
 	m_PrevPressed = m_Pressed;
@@ -111,7 +122,10 @@ void Button::Render()
 {
 	if (!m_Text->IsCreated()) return;
 
-	Renderer::SetColor(m_BgColor);
-	Renderer::FillRect(m_TLX, m_TLY, m_ObjWidth, m_ObjHeight);
+	if (m_Hover && m_Pressed && m_BgActive)
+		Renderer::SetColor(m_BgActive);
+	else
+		Renderer::SetColor(m_BgColor);
+	Renderer::FillRect(m_TLX, m_TLY, GetWidth(), GetHeight());
 	m_Text->Render();
 }

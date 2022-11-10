@@ -14,6 +14,8 @@ public:
 	virtual ~Drawable() = default;
 
 	virtual void SizePosUpdate();
+	virtual void SizePosUpdateBefore() {}
+	virtual void SizePosUpdateAfter() {}
 
 	virtual int32_t GetX() const { return m_X; }
 	virtual int32_t GetY() const { return m_Y; }
@@ -42,8 +44,11 @@ public:
 	virtual int32_t GetObjTopLeftX() const { return m_OTLX; }
 	virtual int32_t GetObjTopLeftY() const { return m_OTLY; }
 
-	virtual int32_t GetWidth() const { return m_PadL + m_ObjWidth + m_PadR; }
-	virtual int32_t GetHeight() const { return m_PadT + m_ObjHeight + m_PadB; }
+	virtual int32_t GetWidth() const { return m_PadL + GetObjectWidth() + m_PadR; }
+	virtual int32_t GetHeight() const { return m_PadT + GetObjectHeight() + m_PadB; }
+
+	virtual int32_t GetObjectWidth() const { return m_ObjWidth; }
+	virtual int32_t GetObjectHeight() const { return m_ObjHeight; }
 
 	virtual int32_t GetPaddingTop() const { return m_PadT; }
 	virtual int32_t GetPaddingBottom() const { return m_PadB; }

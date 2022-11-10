@@ -4,13 +4,14 @@
 
 void StartMenu::OnCreate()
 {
+
+	FontLib::AddFont("rsc/fonts/arialbd.ttf", 72, "arialb");
+	FontLib::AddFont("rsc/fonts/arialbd.ttf", 20, "arialb");
+
+	m_Title = std::make_shared<Text>("TETRIS", "arialb", 72);
+	m_PressToStart = std::make_shared<Text>("< Press Enter >", "arialb", 20);
+
 	LayerManager::AddLayer("menu", std::make_shared<Menu>());
-
-	FontLib::AddFont("rsc/fonts/arialbd.ttf", 72, "arial");
-	FontLib::AddFont("rsc/fonts/arialbd.ttf", 20, "arial");
-
-	m_Title = std::make_shared<Text>("TETRIS", "arial", 72);
-	m_PressToStart = std::make_shared<Text>("< Press Enter >", "arial", 20);
 }
 
 void StartMenu::OnResize(int32_t width, int32_t height)

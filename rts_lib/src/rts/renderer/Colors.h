@@ -8,8 +8,9 @@ typedef struct Color
 	Color(uint8_t r = 0x00, uint8_t g = 0x00, uint8_t b = 0x00, uint8_t a = 0xFF)
 		: r(r), g(g), b(b), a(a) {}
 	SDL_Color toSDL() { return SDL_Color{ r, g, b, a }; }
-	inline bool operator==(const Color& l, const Color& r) { return this->r == o.r && this->g == o.g && this->b == o.b && this->a == o.a; }
-	bool operator!=(const Color& o) { return !(o == this); }
+	inline bool operator==(const Color& o) const { return this->r == o.r && this->g == o.g && this->b == o.b && this->a == o.a; }
+	bool operator!=(const Color& o) const { return !operator==(o); }
+	operator bool() const { return this->r != 0 || this->g != 0 || this->b != 0 || this->a != 0; }
 } Color;
 
 namespace Colors {

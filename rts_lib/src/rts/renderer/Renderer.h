@@ -23,8 +23,7 @@ public:
 	static void DrawRect(int32_t x, int32_t y, int32_t w, int32_t h);
 	static void FillRect(int32_t x, int32_t y, int32_t w, int32_t h);
 
-	static void RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y);
-	static void RenderTexture(std::shared_ptr<Texture> tex, int32_t x, int32_t y, int32_t w, int32_t h);
+	static void RenderTexture(SDL_Texture* tex, int32_t x, int32_t y, int32_t w, int32_t h);
 
 	static SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
 
