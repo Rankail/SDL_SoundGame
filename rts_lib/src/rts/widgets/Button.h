@@ -2,17 +2,44 @@
 
 #include "rts/widgets/Text.h"
 #include "rts/events/MouseEvent.h"
+#include "rts/renderer/FontLib.h"
 
-enum class ButtonState
+enum ButtonState
 {
-	IDLE, CLICKED, HELD, RELEASED
+	IDLE = 0,
+	CLICKED,
+	HELD,
+	RELEASED
+};
+
+struct ButtonProperties
+{
+	Color backgroundColor;
+	Color backgroundColorActive;
+	Color textColor;
+	std::shared_ptr<Font> font;
+
+	ButtonProperties(const Color& bgColor, const Color& bgColorActive, const Color& textColor, std::shared_ptr<Font> font)
+		: backgroundColor(bgColor), backgroundColorActive(bgColorActive), textColor(textColor), font(font)
+	{}
+
+	ButtonProperties(const Color& bgColor, const Color& bgColorActive, const Color& textColor, const std::string& fontName, int32_t pointSize)
+		: backgroundColor(bgColor), backgroundColorActive(bgColorActive), textColor(textColor), font(FontLib::GetFont(fontName, pointSize))
+	{}
+
 };
 
 class Button : public Drawable
 {
+protected:
+	virtual void SizePosUpdateBefore() override;
+	virtual void SizePosUpdateAfter() override;
+
 public:
 	Button();
 	virtual ~Button();
+	
+	void SetProperties(ButtonProperties& properties);
 
 	void SetText(const std::string& text);
 	void SetFont(const std::string& font, int32_t pointSize);
@@ -21,21 +48,17 @@ public:
 	void SetBackgroundColor(Color color);
 	void SetActiveBackgroundColor(Color color);
 
-	virtual void SizePosUpdateBefore() override;
-	virtual void SizePosUpdateAfter() override;
 
+	ButtonState GetStatus();
 	bool IsHovered();
-	bool IsClicked();
-	bool IsHeld();
-	bool IsReleased();
 
 	void OnEvent(Event& e);
 	bool OnMouseClicked(MouseButtonPressedEvent& e);
 	bool OnMouseReleased(MouseButtonReleasedEvent& e);
 	bool OnMouseMoved(MouseMovedEvent& e);
 
-	void Update();
-	void Render(); //TODO
+	virtual void Update(float dt) override;
+	virtual void Render() override; //TODO
 
 private:
 	bool m_Hover;

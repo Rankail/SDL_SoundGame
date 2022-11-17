@@ -67,10 +67,11 @@ void Application::Run()
 	curTime = SDL_GetTicks();
 	prevTime = curTime;
 	float dt = 0.f;
+	uint32_t cTime = SDL_GetTicks();
 
 	while (!m_Quit)
 	{
-		uint32_t cTime = SDL_GetTicks();
+		cTime = SDL_GetTicks();
 		dt = (float)(curTime - prevTime) / 1000.f;
 
 		// update

@@ -16,5 +16,5 @@ public:
 	virtual void OnRender() override;
 
 private:
-	std::shared_ptr<Button> m_Button;
+	std::shared_ptr<ButtonGroupV> m_Buttons;
 };

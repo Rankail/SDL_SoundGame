@@ -13,6 +13,15 @@ Button::~Button()
 {
 }
 
+void Button::SetProperties(ButtonProperties& properties)
+{
+	m_BgColor = properties.backgroundColor;
+	m_BgActive = properties.backgroundColorActive;
+	m_Text->SetFont(properties.font);
+	m_Text->SetColor(properties.textColor);
+	SizePosUpdate();
+}
+
 void Button::SetText(const std::string& text)
 {
 	m_Text->SetText(text);
@@ -58,24 +67,20 @@ void Button::SizePosUpdateAfter()
 	m_Text->SetPos(m_OTLX, m_OTLY);
 }
 
+ButtonState Button::GetStatus()
+{
+	if (m_Pressed) {
+		if (!m_PrevPressed) return ButtonState::CLICKED;
+		if (m_Hover) return ButtonState::HELD;
+		return ButtonState::IDLE;
+	}
+	if (m_PrevPressed) return ButtonState::RELEASED;
+	return ButtonState::IDLE;
+}
+
 bool Button::IsHovered()
 {
 	return m_Hover;
-}
-
-bool Button::IsClicked()
-{
-	return m_Pressed && !m_PrevPressed;
-}
-
-bool Button::IsHeld()
-{
-	return m_Pressed && m_PrevPressed && m_Hover;
-}
-
-bool Button::IsReleased()
-{
-	return !m_Pressed && m_PrevPressed;
 }
 
 void Button::OnEvent(Event& e)
@@ -113,7 +118,7 @@ bool Button::OnMouseMoved(MouseMovedEvent& e)
 	return false;
 }
 
-void Button::Update()
+void Button::Update(float dt)
 {
 	m_PrevPressed = m_Pressed;
 }

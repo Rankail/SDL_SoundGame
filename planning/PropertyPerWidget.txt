@@ -1,0 +1,15 @@
+Properties:
+	Set once. then just add.
+
+Example:
+ButtonProperties:
+	pad
+	width
+	alignment
+
+	color
+	bgColor -> activeBgcolor
+	font
+	Text
+
+Split in Size-/Appearence-Properties?

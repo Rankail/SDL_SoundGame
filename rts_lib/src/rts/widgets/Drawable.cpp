@@ -13,18 +13,6 @@ void Drawable::SizePosUpdate()
 	m_TLY = m_Y - (m_AlignV * GetHeight() / 2);
 	m_OTLX = m_TLX + m_PadL;
 	m_OTLY = m_TLY + m_PadT;
-	/*switch (m_AlignH)
-	{
-		case LEFT:		m_OTLX = m_TLX + m_PadL;	break;
-		case CENTER:	m_OTLX = m_TLX;				break;
-		case RIGHT:		m_OTLX = m_TLX - m_PadR;	break;
-	}
-	switch (m_AlignV)
-	{
-		case LEFT:		m_OTLY = m_TLY + m_PadT;	break;
-		case CENTER:	m_OTLY = m_TLY;				break;
-		case RIGHT:		m_OTLY = m_TLY - m_PadB;	break;
-	}*/
 	SizePosUpdateAfter();
 }
 
@@ -44,6 +32,33 @@ void Drawable::SetX(int32_t x)
 void Drawable::SetY(int32_t y)
 {
 	m_Y = y;
+	SizePosUpdate();
+}
+
+void Drawable::SetSize(int32_t w, int32_t h)
+{
+	int padX = (w - GetObjectWidth()) / 2;
+	int padY = (h - GetObjectHeight()) / 2;
+	m_PadL = padX;
+	m_PadR = padX;
+	m_PadT = padY;
+	m_PadB = padY;
+	SizePosUpdate();
+}
+
+void Drawable::SetWidth(int32_t w)
+{
+	int pad = (w - GetObjectWidth()) / 2;
+	m_PadL = pad;
+	m_PadR = pad;
+	SizePosUpdate();
+}
+
+void Drawable::SetHeight(int32_t h)
+{
+	int pad = (h - GetObjectHeight()) / 2;
+	m_PadT = pad;
+	m_PadB = pad;
 	SizePosUpdate();
 }
 

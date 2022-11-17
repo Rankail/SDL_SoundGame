@@ -34,7 +34,7 @@ public:
 
 	bool IsCreated() const { return m_Texture != nullptr; }
 
-	void Render();
+	virtual void Render() override;
 
 private:
 	std::shared_ptr<Font> m_Font;

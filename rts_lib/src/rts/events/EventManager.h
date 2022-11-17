@@ -17,6 +17,7 @@ public:
 	static void SetEventCallback(EventCallbackFn func);
 
 private:
+	static SDL_Event ev;
 	static EventCallbackFn m_Callback;
 };
 

@@ -2,26 +2,40 @@
 
 void Menu::OnCreate()
 {
-	m_Button = std::make_shared<Button>();
-	m_Button->SetText("Test Button");
-	m_Button->SetFont("arialb", 20);
-	m_Button->SetTextColor(Colors::YELLOW);
-	m_Button->SetBackgroundColor(Colors::DARK_BLUE);
-	m_Button->SetActiveBackgroundColor(Color(0, 0, 0x44));
+	m_Buttons = std::make_shared<ButtonGroupV>();
+	auto btnMarathon = std::make_shared<Button>();
+	auto btn40Lines = std::make_shared<Button>();
+	m_Buttons->AddButton("marathon", btnMarathon);
+	m_Buttons->AddButton("40lines", btn40Lines);
+
+	ButtonProperties props(Color(0, 0, 0x44), Color(0, 0, 0x25), Colors::YELLOW, "arialb", 20);
+	
+	btnMarathon->SetProperties(props);
+	btnMarathon->SetText("Marathon");
+
+	btn40Lines->SetProperties(props);
+	btn40Lines->SetText("40 Lines");
 }
 
 void Menu::OnResize(int32_t width, int32_t height)
 {
-	m_Button->SetAlignment(Alignment::CENTER, Alignment::CENTER);
-	m_Button->SetPos(width / 2, height / 2);
-	m_Button->SetPadding(10);
+	m_Buttons->SetAlignment(Alignment::CENTER, Alignment::CENTER);
+	m_Buttons->SetPos(width / 2, height / 2);
+	m_Buttons->SetGap(15);
+
+	auto btn = m_Buttons->GetButton("marathon");
+	btn->SetPadding(10);
+	btn = m_Buttons->GetButton("40lines");
+	btn->SetPadding(10);
+
+	m_Buttons->UpdateLayout();
 }
 
 void Menu::OnEvent(Event& e)
 {
 	EventSplitter splitter(e);
 	splitter.Dispatch<KeyReleasedEvent>(BIND_FN(Menu::OnKeyRelease));
-	m_Button->OnEvent(e);
+	m_Buttons->OnEvent(e);
 }
 
 bool Menu::OnKeyRelease(KeyReleasedEvent& e)
@@ -37,27 +51,11 @@ bool Menu::OnKeyRelease(KeyReleasedEvent& e)
 
 bool Menu::OnUpdate(float dt)
 {
-	if (m_Button->IsClicked())
-	{
-		LOG_INFO("Click");
-	}
-	if (m_Button->IsHeld())
-	{
-		LOG_INFO("Held");
-	}
-	if (m_Button->IsReleased())
-	{
-		LOG_INFO("Release");
-	}
-
-
-	m_Button->Update();
+	m_Buttons->Update(dt);
 	return false;
 }
 
 void Menu::OnRender()
 {
-	Renderer::SetColor(Colors::RED);
-	Renderer::FillRect(10, 10, 100, 200);
-	m_Button->Render();
+	m_Buttons->Render();
 }

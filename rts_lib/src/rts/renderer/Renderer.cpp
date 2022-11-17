@@ -55,12 +55,14 @@ void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 
 void Renderer::DrawRect(int32_t x, int32_t y, int32_t w, int32_t h)
 {
-	SDL_RenderDrawRect(s_Data.renderer, new SDL_Rect{x, y, w, h});
+	SDL_Rect dstRect = { x, y, w, h };
+	SDL_RenderDrawRect(s_Data.renderer, &dstRect);
 }
 
 void Renderer::FillRect(int32_t x, int32_t y, int32_t w, int32_t h)
 {
-	SDL_RenderFillRect(s_Data.renderer, new SDL_Rect{x, y, w, h});
+	SDL_Rect dstRect = { x, y, w, h };
+	SDL_RenderFillRect(s_Data.renderer, &dstRect);
 }
 
 void Renderer::RenderTexture(SDL_Texture* tex, int32_t x, int32_t y, int32_t w, int32_t h)

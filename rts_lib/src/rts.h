@@ -21,3 +21,4 @@
 
 #include "rts/widgets/Text.h"
 #include "rts/widgets/Button.h"
+#include "rts/widgets/ButtonGroupV.h"

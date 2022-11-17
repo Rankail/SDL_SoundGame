@@ -9,13 +9,14 @@ enum Alignment
 
 class Drawable
 {
-public:
-	Drawable(Alignment alignH = Alignment::LEFT, Alignment alignV = Alignment::LEFT);
-	virtual ~Drawable() = default;
-
+protected:
 	virtual void SizePosUpdate();
 	virtual void SizePosUpdateBefore() {}
 	virtual void SizePosUpdateAfter() {}
+
+public:
+	Drawable(Alignment alignH = Alignment::LEFT, Alignment alignV = Alignment::LEFT);
+	virtual ~Drawable() = default;
 
 	virtual int32_t GetX() const { return m_X; }
 	virtual int32_t GetY() const { return m_Y; }
@@ -23,6 +24,10 @@ public:
 	virtual void SetPos(int32_t x, int32_t y);
 	virtual void SetX(int32_t x);
 	virtual void SetY(int32_t y);
+
+	virtual void SetSize(int32_t w, int32_t h);
+	virtual void SetWidth(int32_t w);
+	virtual void SetHeight(int32_t h);
 
 	virtual void SetAlignment(Alignment alignH, Alignment alignV);
 	virtual void SetAlignmentH(Alignment align);
@@ -57,6 +62,9 @@ public:
 
 	virtual Alignment GetAlignmentH() const { return m_AlignH; }
 	virtual Alignment GetAlignmentV() const { return m_AlignV; }
+
+	virtual void Update(float dt) {}
+	virtual void Render() {}
 
 protected:
 	int32_t m_X = 0;

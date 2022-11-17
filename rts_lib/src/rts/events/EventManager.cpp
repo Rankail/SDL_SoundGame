@@ -7,10 +7,10 @@
 #include "rts/core/LayerManager.h"
 
 EventManager::EventCallbackFn EventManager::m_Callback;
+SDL_Event EventManager::ev;
 
 void EventManager::PollEvents()
 {
-	SDL_Event ev;
 	while (SDL_PollEvent(&ev))
 	{
 		if (ev.type == SDL_WINDOWEVENT)
