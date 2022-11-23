@@ -4,7 +4,7 @@
 void ButtonGroupV::CalculateHeight()
 {
 	int totalHeight = 0;
-	for (auto button : m_Buttons) {
+	for (auto& button : m_Buttons) {
 		totalHeight += button->GetHeight();
 	}
 	totalHeight += m_Gap * (m_Buttons.size() - 1);
@@ -14,9 +14,10 @@ void ButtonGroupV::CalculateHeight()
 void ButtonGroupV::SizePosUpdateAfter()
 {
 	int off = 0;
-	for (auto button : m_Buttons) {
+	for (auto& button : m_Buttons) {
 		button->SetPos(m_OTLX, m_OTLY + off);
-		button->SetWidth(m_ObjWidth);
+		if (button->GetButtonType() != ButtonType::TEXTURE)
+			button->SetWidth(m_ObjWidth);
 		off += button->GetHeight() + m_Gap;
 	}
 }
@@ -29,7 +30,7 @@ ButtonGroupV::~ButtonGroupV()
 {
 }
 
-void ButtonGroupV::AddButton(const std::string& name, std::shared_ptr<Button> button)
+void ButtonGroupV::AddButton(const std::string& name, std::shared_ptr<AbstractButton> button)
 {
 	auto it = m_Names.find(name);
 	if (it != m_Names.end() && it->second != button) {
@@ -39,7 +40,7 @@ void ButtonGroupV::AddButton(const std::string& name, std::shared_ptr<Button> bu
 	AddButton(button);
 }
 
-void ButtonGroupV::AddButton(std::shared_ptr<Button> button)
+void ButtonGroupV::AddButton(std::shared_ptr<AbstractButton> button)
 {
 	if (std::find(m_Buttons.begin(), m_Buttons.end(), button) != m_Buttons.end()) {
 		LOG_WARN("Button was already added to Buttongroup");
@@ -50,7 +51,7 @@ void ButtonGroupV::AddButton(std::shared_ptr<Button> button)
 	SizePosUpdate();
 }
 
-std::shared_ptr<Button> ButtonGroupV::GetButton(const std::string& name)
+std::shared_ptr<AbstractButton> ButtonGroupV::GetButton(const std::string& name)
 {
 	auto it = m_Names.find(name);
 	if (it == m_Names.end()) {
@@ -91,7 +92,7 @@ void ButtonGroupV::UpdateLayout()
 {
 	CalculateHeight();
 	int max = 0;
-	for (auto button : m_Buttons) {
+	for (auto& button : m_Buttons) {
 		max = std::max(max, button->GetWidth());
 	}
 	m_ObjWidth = max;
@@ -110,14 +111,14 @@ void ButtonGroupV::OnEvent(Event& e)
 
 void ButtonGroupV::Update(float dt)
 {
-	for (auto button : m_Buttons) {
+	for (auto& button : m_Buttons) {
 		button->Update(dt);
 	}
 }
 
 void ButtonGroupV::Render()
 {
-	for (auto button : m_Buttons) {
+	for (auto& button : m_Buttons) {
 		button->Render();
 	}
 }

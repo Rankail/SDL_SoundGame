@@ -4,32 +4,9 @@
 #include "rts/events/MouseEvent.h"
 #include "rts/renderer/FontLib.h"
 
-enum ButtonState
-{
-	IDLE = 0,
-	CLICKED,
-	HELD,
-	RELEASED
-};
+#include "rts/widgets/AbstractButton.h"
 
-struct ButtonProperties
-{
-	Color backgroundColor;
-	Color backgroundColorActive;
-	Color textColor;
-	std::shared_ptr<Font> font;
-
-	ButtonProperties(const Color& bgColor, const Color& bgColorActive, const Color& textColor, std::shared_ptr<Font> font)
-		: backgroundColor(bgColor), backgroundColorActive(bgColorActive), textColor(textColor), font(font)
-	{}
-
-	ButtonProperties(const Color& bgColor, const Color& bgColorActive, const Color& textColor, const std::string& fontName, int32_t pointSize)
-		: backgroundColor(bgColor), backgroundColorActive(bgColorActive), textColor(textColor), font(FontLib::GetFont(fontName, pointSize))
-	{}
-
-};
-
-class Button : public Drawable
+class Button : public AbstractButton
 {
 protected:
 	virtual void SizePosUpdateBefore() override;
@@ -39,34 +16,16 @@ public:
 	Button();
 	virtual ~Button();
 	
-	void SetProperties(ButtonProperties& properties);
+	virtual void SetProperties(const ButtonProperties& properties) override;
 
-	void SetText(const std::string& text);
-	void SetFont(const std::string& font, int32_t pointSize);
-	void SetFont(std::shared_ptr<Font> font);
-	void SetTextColor(Color color);
 	void SetBackgroundColor(Color color);
 	void SetActiveBackgroundColor(Color color);
 
-
-	ButtonState GetStatus();
-	bool IsHovered();
-
-	void OnEvent(Event& e);
-	bool OnMouseClicked(MouseButtonPressedEvent& e);
-	bool OnMouseReleased(MouseButtonReleasedEvent& e);
-	bool OnMouseMoved(MouseMovedEvent& e);
-
-	virtual void Update(float dt) override;
-	virtual void Render() override; //TODO
+	virtual void Render() override;
 
 private:
-	bool m_Hover;
-	bool m_Pressed = false;
-	bool m_PrevPressed = false;
+	const ButtonType m_Type = ButtonType::BASIC;
 
 	Color m_BgColor = Colors::NONE;
 	Color m_BgActive = Colors::NONE;
-
-	std::shared_ptr<Text> m_Text;
 };

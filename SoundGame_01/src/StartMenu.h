@@ -9,14 +9,13 @@ public:
 
 	virtual void OnResize(int32_t width, int32_t height);
 	virtual void OnEvent(Event& e) override;
-	bool OnMousePress(MouseButtonPressedEvent& e);
-	bool OnMouseRelease(MouseButtonReleasedEvent& e);
 	bool OnKeyRelease(KeyReleasedEvent& e);
 
+	virtual bool OnUpdate(float dt) override;
 	virtual void OnRender() override;
 
 private:
 	bool m_Pressed = false;
 	std::shared_ptr<Text> m_Title;
-	std::shared_ptr<Text> m_PressToStart;
+	std::shared_ptr<TextureButton> m_BtnPressToStart;
 };

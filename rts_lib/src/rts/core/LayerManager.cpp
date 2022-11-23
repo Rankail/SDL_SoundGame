@@ -80,6 +80,7 @@ void LayerManager::SwitchTo(const std::string& name)
 		LOG_WARN("Failed to find and switch to Layer '{}'", name);
 		return;
 	}
+	LOG_TRACE("Switching to '{}'", name);
 	SwitchTo(it->second);
 }
 

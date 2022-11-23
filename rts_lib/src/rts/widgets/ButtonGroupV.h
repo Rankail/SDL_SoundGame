@@ -16,10 +16,10 @@ public:
 	ButtonGroupV();
 	virtual ~ButtonGroupV();
 
-	void AddButton(const std::string& name, std::shared_ptr<Button> button);
-	void AddButton(std::shared_ptr<Button> button);
+	void AddButton(const std::string& name, std::shared_ptr<AbstractButton> button);
+	void AddButton(std::shared_ptr<AbstractButton> button);
 
-	std::shared_ptr<Button> GetButton(const std::string& name);
+	std::shared_ptr<AbstractButton> GetButton(const std::string& name);
 
 	void SetGap(int gap);
 
@@ -33,7 +33,7 @@ public:
 	virtual void Render() override;
 
 private:
-	std::unordered_map<std::string, std::shared_ptr<Button>> m_Names;
-	std::vector<std::shared_ptr<Button>> m_Buttons;
+	std::unordered_map<std::string, std::shared_ptr<AbstractButton>> m_Names;
+	std::vector<std::shared_ptr<AbstractButton>> m_Buttons;
 	int m_Gap = 0;
 };

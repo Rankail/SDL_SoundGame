@@ -43,7 +43,6 @@ bool Menu::OnKeyRelease(KeyReleasedEvent& e)
 	if (e.GetKeyCode() == SDL_SCANCODE_ESCAPE)
 	{
 		LayerManager::SwitchTo("start");
-		return true;
 	}
 
 	return false;
